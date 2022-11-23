@@ -2,6 +2,7 @@ import React from "react";
 import "./Styles.css";
 
 import { Todo } from "../model/modal";
+import SingleTodo from "./SingleTodo";
 
 interface Props {
   todoos: Todo[];
@@ -11,8 +12,13 @@ interface Props {
 const TodoList: React.FC<Props> = ({ todoos, setTodoos }: Props) => {
   return (
     <div className="todos">
-      {todoos.map((item) => (
-        <li>{item.todo}</li>
+      {todoos.map((item) => ( 
+        //  we are also sending all of the todo's for deleting, editing and other stuff
+        <SingleTodo todo={item} 
+            key={item.id}  
+            todoos={todoos}
+            setTodos={setTodoos}
+        />
       ))}
     </div>
   );
