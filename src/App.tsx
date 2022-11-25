@@ -45,7 +45,7 @@ const App:React.FC=()=> {
   // useRef are like document.getElementId etc.we are hook an html element property
   return (
     <div className='App'>
-      <span className='heading'>TASKIFY</span>
+      <span className='heading'>TYPE TASK!</span>
 
       <InputField todo={todo} setTodo={setTodo} handleAdd={handleAdd}/>
 

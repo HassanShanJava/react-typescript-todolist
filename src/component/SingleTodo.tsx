@@ -16,41 +16,72 @@ type Prop = {
 
 // we recieve the here
 const SingleTodo = ({ todo, key, todoos, setTodos }: Prop) => {
+  const [edit, setEdit] = useState<boolean>(false);
+  const [editTodo, setEditTodo] = useState<string>(todo.todo);
+
+  const handleDone = (id: number) => {
+    setTodos(
+      todoos.map((todo) =>
+        todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
+      )
+    );
+  };
+
+  const handleDelete = (id: number) => {
+    setTodos(todoos.filter((todo) => todo.id !== id));
+  };
+
+  // use useRef hook to autofocus on edit input field
+  const inputRef = useRef<HTMLInputElement>(null);
 
 
-    const  handleDone=(id:number)=>{
-        setTodos(todoos.map((todo)=>todo.id===id?{...todo, isDone:!todo.isDone} :todo) )
-        
-    }
+//   use useeffect so whenever edit changes it fires of
+useEffect(()=>{
+    inputRef.current?.focus()
+    // whenever the edit changess, it focuses
+},[edit ])
 
-    const  handleDelete=()=>{
-
-    }
-
-    const  handleEdit=()=>{
-
-    }
+  const handleEdit = (e: React.FormEvent, id: number) => {
+    e.preventDefault();
+    setTodos(
+      todoos.map((todo) =>
+        todo.id === id ? { ...todo, todo: editTodo } : todo
+      )
+    );
+    // setTodos(todos.map)
+    setEdit(false);
+  };
   return (
-    <form className="todos__single">
-
-        {/* / check if done? */}
-        {
-            todo.isDone?(
-
-                <s className="todos__single--text">{todo.todo}</s>
-                ):(
-                    
-                    <span className="todos__single--text">{todo.todo}</span>
-            )
-        }
+    <form className="todos__single" onSubmit={(e) => handleEdit(e, todo.id)}>
+      {/* if edit mode is on, display input box */}
+      {edit ? (
+        <input
+          ref={inputRef}
+          value={editTodo}
+          onChange={(e) => setEditTodo(e.target.value)}
+          className="todos__single--text"
+        />
+      ) : todo.isDone ? (
+        <s className="todos__single--text">{todo.todo}</s>
+      ) : (
+        <span className="todos__single--text">{todo.todo}</span>
+      )}
       <div>
-        <span className="icon" onClick={()=>handleEdit}>
+        <span
+          className="icon"
+          onClick={() => {
+            if (!edit && !todo.isDone) {
+              setEdit(!edit);
+            } else {
+            }
+          }}
+        >
           <AiFillEdit />
         </span>
-        <span className="icon" onClick={()=>handleDelete}>
+        <span className="icon" onClick={() => handleDelete(todo.id)}>
           <AiFillDelete />
         </span>
-        <span className="icon" onClick={()=>handleDone(todo.id)}>
+        <span className="icon" onClick={() => handleDone(todo.id)}>
           <MdDone />
         </span>
       </div>
