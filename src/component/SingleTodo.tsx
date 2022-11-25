@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { MdDone } from "react-icons/md";
 import { Todo } from "../model/modal";
-import TodoList from "./TodoList";
+// import TodoList from "./TodoList";
 
 type Prop = {
   todo: Todo;
