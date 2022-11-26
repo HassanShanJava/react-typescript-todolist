@@ -11,16 +11,47 @@ interface Props {
 
 const TodoList: React.FC<Props> = ({ todoos, setTodoos }: Props) => {
   return (
-    <div className="todos">
-      {todoos.map((item) => ( 
-        //  we are also sending all of the todo's for deleting, editing and other stuff
-        <SingleTodo todo={item} 
-            key={item.id}  
-            todoos={todoos}
-            setTodos={setTodoos}
-        />
-      ))}
+
+    <div className="container">
+        <div className="todos">
+            <span className="todos__heading">
+                Active Tasks
+            </span>
+            {todoos.map((item) => ( 
+                <SingleTodo 
+                    todo={item} 
+                    key={item.id}  
+                    todoos={todoos}
+                    setTodos={setTodoos}
+                />
+            ))}
+        </div>
+        <div className="todos remove">
+        <span className="todos__heading">
+                Completed Tasks
+            </span>
+            {todoos.map((item) => ( 
+                <SingleTodo 
+                    todo={item} 
+                    key={item.id}  
+                    todoos={todoos}
+                    setTodos={setTodoos}
+                />
+            ))}
+        </div>
     </div>
+    // <div className="todos">
+    //   {todoos.map((item) => ( 
+    //     //  we are also sending all of the todo's for deleting, editing and other stuff
+    //     <SingleTodo todo={item} 
+    //         key={item.id}  
+    //         todoos={todoos}
+    //         setTodos={setTodoos}
+    //     />
+    //   ))}
+
+    //   {/* now gona work on drag-and-drop */}
+    // </div>
   );
 };
 

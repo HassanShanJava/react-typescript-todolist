@@ -84,6 +84,7 @@ useEffect(()=>{
         <span className="icon" onClick={() => handleDone(todo.id)}>
           <MdDone />
         </span>
+        
       </div>
     </form>
   );
